@@ -10,28 +10,108 @@
   <body>
     <div class="container">
       <h1>Displaced People Needs Results</h1>
+      <p id="summary"></p>
       <canvas id="needsChart"></canvas>
+
+      <!-- Display additional data points here -->
+      <div id="details">
+        <h2>Details</h2>
+        <ul>
+          <li id="toilets"></li>
+          <li id="beds"></li>
+          <li id="cleanWater"></li>
+          <li id="painkillers"></li>
+          <li id="antibiotics"></li>
+          <li id="sanitationKits"></li>
+          <li id="foodSupplies"></li>
+          <!-- Add more items as needed -->
+        </ul>
+      </div>
     </div>
 
     <script>
-      // This data would come from the form submission and processing
+      // Retrieve data from localStorage (replace this with actual calculations if needed)
+      const peopleCount = localStorage.getItem("peopleCount");
+      const healthFacility = localStorage.getItem("healthFacility");
+      const otherNeeds = localStorage.getItem("otherNeeds");
+
+      // Display a summary of the inputs
+      document.getElementById("summary").innerHTML = `
+            <strong>Number of People:</strong> ${peopleCount} <br>
+            <strong>Health Facility:</strong> ${healthFacility} <br>
+            <strong>Other Needs:</strong> ${otherNeeds}
+        `;
+
+      // Example calculations for necessities based on people count
+      const numToilets = Math.ceil(peopleCount / 20); // 1 toilet per 20 people
+      const numBeds = peopleCount; // 1 bed per person
+      const cleanWaterLiters = peopleCount * 15; // 15 liters of water per person
+      const numPainkillers = peopleCount * 5; // 5 doses of painkillers per person
+      const numAntibiotics = Math.ceil(peopleCount / 10); // 1 dose of antibiotics for every 10 people
+      const numSanitationKits = peopleCount; // 1 sanitation kit per person
+      const foodSuppliesDays = peopleCount * 2; // 2 meals per person per day
+
+      // Update the HTML with the calculated data
+      document.getElementById(
+        "toilets"
+      ).innerHTML = `Toilets Required: ${numToilets}`;
+      document.getElementById("beds").innerHTML = `Beds Required: ${numBeds}`;
+      document.getElementById(
+        "cleanWater"
+      ).innerHTML = `Clean Water (Liters): ${cleanWaterLiters}`;
+      document.getElementById(
+        "painkillers"
+      ).innerHTML = `Painkiller Doses: ${numPainkillers}`;
+      document.getElementById(
+        "antibiotics"
+      ).innerHTML = `Antibiotic Doses: ${numAntibiotics}`;
+      document.getElementById(
+        "sanitationKits"
+      ).innerHTML = `Sanitation Kits: ${numSanitationKits}`;
+      document.getElementById(
+        "foodSupplies"
+      ).innerHTML = `Food Supplies (meals): ${foodSuppliesDays}`;
+
+      // Chart data
       const data = {
-        labels: ["Toilets", "Beds", "Medical Facilities", "Clean Water"],
+        labels: [
+          "Toilets",
+          "Beds",
+          "Clean Water (Liters)",
+          "Painkiller Doses",
+          "Antibiotic Doses",
+          "Sanitation Kits",
+          "Food Supplies",
+        ],
         datasets: [
           {
             label: "Necessities for People",
-            data: [10, 100, 1, 500], // Example data, you'll populate it dynamically
+            data: [
+              numToilets,
+              numBeds,
+              cleanWaterLiters,
+              numPainkillers,
+              numAntibiotics,
+              numSanitationKits,
+              foodSuppliesDays,
+            ],
             backgroundColor: [
               "rgba(75, 192, 192, 0.2)",
               "rgba(54, 162, 235, 0.2)",
               "rgba(255, 206, 86, 0.2)",
               "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
             ],
             borderColor: [
               "rgba(75, 192, 192, 1)",
               "rgba(54, 162, 235, 1)",
               "rgba(255, 206, 86, 1)",
               "rgba(153, 102, 255, 1)",
+              "rgba(255, 99, 132, 1)",
+              "rgba(255, 159, 64, 1)",
+              "rgba(75, 192, 192, 1)",
             ],
             borderWidth: 1,
           },
@@ -39,7 +119,7 @@
       };
 
       const config = {
-        type: "bar", // You can change to 'pie', 'line', etc.
+        type: "bar",
         data: data,
         options: {
           scales: {
