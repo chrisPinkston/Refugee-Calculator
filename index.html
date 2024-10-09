@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Displaced People Needs Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Displaced People Needs Assessment</h1>
+      <form id="needsForm" action="output.html">
+        <label for="peopleCount">Number of People:</label>
+        <input
+          type="number"
+          id="peopleCount"
+          name="peopleCount"
+          min="0"
+          required
+        /><br /><br />
+
+        <label for="healthFacility">Health Facility:</label><br />
+        <input
+          type="radio"
+          id="hospital"
+          name="healthFacility"
+          value="hospital"
+        />
+        <label for="hospital">Hospital</label><br />
+        <input type="radio" id="clinic" name="healthFacility" value="clinic" />
+        <label for="clinic">Clinic</label><br />
+        <input
+          type="radio"
+          id="mobileClinic"
+          name="healthFacility"
+          value="mobileClinic"
+        />
+        <label for="mobileClinic">Mobile Clinic</label><br />
+        <input
+          type="radio"
+          id="none"
+          name="healthFacility"
+          value="none"
+          checked
+        />
+        <label for="none">None</label><br /><br />
+
+        <label for="otherNeeds">Other Important Needs:</label><br />
+        <textarea
+          id="otherNeeds"
+          name="otherNeeds"
+          placeholder="e.g. clean water, food, temporary shelters"
+        ></textarea
+        ><br /><br />
+
+        <button type="submit">Calculate Needs</button>
+      </form>
+    </div>
+  </body>
+</html>
